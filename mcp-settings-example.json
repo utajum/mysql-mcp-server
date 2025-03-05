@@ -1,0 +1,17 @@
+{
+  "mcpServers": {
+    "mysql": {
+      "command": "node",
+      "args": ["/absolute/path/to/mysql-mcp-server/build/index.js"],
+      "env": {
+        "MYSQL_HOST": "localhost",
+        "MYSQL_PORT": "3306",
+        "MYSQL_USER": "your-mysql-user",
+        "MYSQL_PASSWORD": "your-mysql-password",
+        "MYSQL_DATABASE": "your-default-database"
+      },
+      "disabled": false,
+      "autoApprove": []
+    }
+  }
+}
