@@ -2,10 +2,9 @@
   "name": "mysql-mcp-server",
   "version": "0.1.0",
   "description": "An MCP server that provides read-only access to MySQL databases.",
-  "private": true,
   "type": "module",
   "bin": {
-    "mysql-mcp-server": "./build/index.js"
+    "mysql-mcp-server": "build/index.js"
   },
   "files": [
     "build"
@@ -19,6 +18,20 @@
     "test:tools": "node test-tools.js",
     "test": "npm run test:setup && npm run test:tools"
   },
+  "keywords": [
+    "mcp",
+    "mysql",
+    "database",
+    "model-context-protocol",
+    "ai",
+    "llm"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/dpflucas/mysql-mcp-server.git"
+  },
+  "author": "Diogo Lucas <dpflucas@gmail.com>",
+  "license": "MIT",
   "dependencies": {
     "@modelcontextprotocol/sdk": "0.6.0",
     "mysql2": "^3.12.0"

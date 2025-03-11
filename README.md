@@ -16,10 +16,24 @@ This MCP server provides read-only access to MySQL databases. It allows you to:
 
 ## Installation
 
-### 1. Build the server
+### Option 1: Install from NPM (Recommended)
 
 ```bash
+# Install globally
+npm install -g mysql-mcp-server
+
+# Or install locally in your project
+npm install mysql-mcp-server
+```
+
+### Option 2: Build from Source
+
+```bash
+# Clone the repository
+git clone https://github.com/dpflucas/mysql-mcp-server.git
 cd mysql-mcp-server
+
+# Install dependencies and build
 npm install
 npm run build
 ```
@@ -38,6 +52,28 @@ The server requires the following environment variables:
 
 Add the following configuration to your MCP settings file:
 
+If you installed via npm (Option 1):
+```json
+{
+  "mcpServers": {
+    "mysql": {
+      "command": "npx",
+      "args": ["mysql-mcp-server"],
+      "env": {
+        "MYSQL_HOST": "your-mysql-host",
+        "MYSQL_PORT": "3306",
+        "MYSQL_USER": "your-mysql-user",
+        "MYSQL_PASSWORD": "your-mysql-password",
+        "MYSQL_DATABASE": "your-default-database"
+      },
+      "disabled": false,
+      "autoApprove": []
+    }
+  }
+}
+```
+
+If you built from source (Option 2):
 ```json
 {
   "mcpServers": {
