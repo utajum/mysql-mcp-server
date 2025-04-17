@@ -8,7 +8,6 @@ startCommand:
     required:
       - mysqlHost
       - mysqlUser
-      - mysqlPassword
     properties:
       mysqlHost:
         type: string
@@ -22,7 +21,7 @@ startCommand:
         description: MySQL username
       mysqlPassword:
         type: string
-        description: MySQL password
+        description: MySQL password (optional)
       mysqlDatabase:
         type: string
         description: Default database (optional)
@@ -36,7 +35,7 @@ startCommand:
         MYSQL_HOST: config.mysqlHost,
         MYSQL_PORT: config.mysqlPort ? config.mysqlPort.toString() : '3306',
         MYSQL_USER: config.mysqlUser,
-        MYSQL_PASSWORD: config.mysqlPassword,
+        MYSQL_PASSWORD: config.mysqlPassword || '',
         MYSQL_DATABASE: config.mysqlDatabase || ''
       }
     })
