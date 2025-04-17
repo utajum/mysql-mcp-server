@@ -17,15 +17,9 @@ This MCP server provides read-only access to MySQL databases. It allows you to:
 
 ## Installation
 
-### Installing via Smithery
+### 1. Install using one of these methods:
 
-To install MySQL Database Access MCP Server for Claude AI automatically via [Smithery](https://smithery.ai/server/@dpflucas/mysql-mcp-server):
-
-```bash
-npx -y @smithery/cli install @dpflucas/mysql-mcp-server --client claude
-```
-
-### Option 1: Install from NPM (Recommended)
+#### Install from NPM
 
 ```bash
 # Install globally
@@ -35,7 +29,7 @@ npm install -g mysql-mcp-server
 npm install mysql-mcp-server
 ```
 
-### Option 2: Build from Source
+#### Build from Source
 
 ```bash
 # Clone the repository
@@ -45,6 +39,14 @@ cd mysql-mcp-server
 # Install dependencies and build
 npm install
 npm run build
+```
+
+#### Install via Smithery
+
+To install MySQL Database Access MCP Server for Claude AI automatically via [Smithery](https://smithery.ai/server/@dpflucas/mysql-mcp-server):
+
+```bash
+npx -y @smithery/cli install @dpflucas/mysql-mcp-server --client claude
 ```
 
 ### 2. Configure environment variables
