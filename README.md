@@ -2,7 +2,8 @@
   <img width="380" height="200" src="https://glama.ai/mcp/servers/@dpflucas/mysql-mcp-server/badge" alt="mysql-mcp-server MCP server" />
 </a>
 
-[![smithery badge](https://smithery.ai/badge/@dpflucas/mysql-mcp-server)](https://smithery.ai/server/@dpflucas/mysql-mcp-server)
+[![npm version](https://img.shields.io/npm/v/mysql-mcp-server?color=blue)](https://www.npmjs.com/package/mysql-mcp-server) [![smithery badge](https://smithery.ai/badge/@dpflucas/mysql-mcp-server)](https://smithery.ai/server/@dpflucas/mysql-mcp-server)
+
 
 # MySQL Database Access MCP Server
 
