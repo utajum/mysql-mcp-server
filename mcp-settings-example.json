@@ -14,7 +14,11 @@
         "MYSQL_QUEUE_LIMIT": "0",
         "MYSQL_CONNECT_TIMEOUT": "10000",
         "MYSQL_IDLE_TIMEOUT": "60000",
-        "MYSQL_MAX_IDLE": "10"
+        "MYSQL_MAX_IDLE": "10",
+
+        "PORT": "3000",
+        "MCP_HTTP_AUTH_ENABLED": "true",
+        "MCP_HTTP_API_KEY": "your-secret-api-key"
       },
       "disabled": false,
       "autoApprove": []

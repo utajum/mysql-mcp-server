@@ -4,13 +4,7 @@
  */
 
 // List of allowed SQL commands (read-only operations)
-const ALLOWED_COMMANDS = [
-  'SELECT',
-  'SHOW',
-  'DESCRIBE',
-  'DESC',
-  'EXPLAIN',
-];
+const ALLOWED_COMMANDS = ['SELECT', 'SHOW', 'DESCRIBE', 'DESC', 'EXPLAIN'];
 
 // List of disallowed SQL commands (write operations)
 const DISALLOWED_COMMANDS = [
@@ -50,22 +44,22 @@ export function isReadOnlyQuery(query: string): boolean {
     .replace(/\s+/g, ' ') // Normalize whitespace
     .trim()
     .toUpperCase();
-  
+
   // Check if query starts with an allowed command
-  const startsWithAllowed = ALLOWED_COMMANDS.some(cmd => 
-    normalizedQuery.startsWith(cmd + ' ') || normalizedQuery === cmd
+  const startsWithAllowed = ALLOWED_COMMANDS.some(
+    (cmd) => normalizedQuery.startsWith(cmd + ' ') || normalizedQuery === cmd
   );
-  
+
   // Check if query contains any disallowed commands
-  const containsDisallowed = DISALLOWED_COMMANDS.some(cmd => {
+  const containsDisallowed = DISALLOWED_COMMANDS.some((cmd) => {
     const regex = new RegExp(`(^|\\s)${cmd}(\\s|$)`);
     return regex.test(normalizedQuery);
   });
-  
+
   // Check for multiple statements (;)
-  const hasMultipleStatements = normalizedQuery.includes(';') && 
-    !normalizedQuery.endsWith(';');
-  
+  const hasMultipleStatements =
+    normalizedQuery.includes(';') && !normalizedQuery.endsWith(';');
+
   // Query is read-only if it starts with an allowed command,
   // doesn't contain any disallowed commands, and doesn't have multiple statements
   return startsWithAllowed && !containsDisallowed && !hasMultipleStatements;
@@ -78,15 +72,17 @@ export function isReadOnlyQuery(query: string): boolean {
  */
 export function validateQuery(query: string): void {
   console.error('[Validator] Validating query:', query);
-  
+
   if (!query || typeof query !== 'string') {
     throw new Error('Query must be a non-empty string');
   }
-  
+
   if (!isReadOnlyQuery(query)) {
     console.error('[Validator] Query rejected: not read-only');
-    throw new Error('Only read-only queries are allowed (SELECT, SHOW, DESCRIBE, EXPLAIN)');
+    throw new Error(
+      'Only read-only queries are allowed (SELECT, SHOW, DESCRIBE, EXPLAIN)'
+    );
   }
-  
+
   console.error('[Validator] Query validated as read-only');
 }

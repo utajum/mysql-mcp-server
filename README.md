@@ -64,6 +64,9 @@ The server requires the following environment variables:
 - `MYSQL_USER`: Database username
 - `MYSQL_PASSWORD`: Database password (optional, but recommended for secure connections)
 - `MYSQL_DATABASE`: Default database name (optional)
+- `PORT`: Port for the HTTP server to listen on (default: 3000)
+- `MCP_HTTP_AUTH_ENABLED`: Set to `true` to enable API key authentication for the HTTP server (default: `false`)
+- `MCP_HTTP_API_KEY`: The secret API key required for authenticated requests when `MCP_HTTP_AUTH_ENABLED` is `true`
 
 ### 3. Add to MCP settings
 
@@ -81,7 +84,10 @@ If you installed via npm (Option 1):
         "MYSQL_PORT": "3306",
         "MYSQL_USER": "your-mysql-user",
         "MYSQL_PASSWORD": "your-mysql-password",
-        "MYSQL_DATABASE": "your-default-database"
+        "MYSQL_DATABASE": "your-default-database",
+        "PORT": "3000",
+        "MCP_HTTP_AUTH_ENABLED": "true",
+        "MCP_HTTP_API_KEY": "your-secret-api-key"
       },
       "disabled": false,
       "autoApprove": []
@@ -102,13 +108,51 @@ If you built from source (Option 2):
         "MYSQL_PORT": "3306",
         "MYSQL_USER": "your-mysql-user",
         "MYSQL_PASSWORD": "your-mysql-password",
-        "MYSQL_DATABASE": "your-default-database"
+        "MYSQL_DATABASE": "your-default-database",
+        "PORT": "3000",
+        "MCP_HTTP_AUTH_ENABLED": "true",
+        "MCP_HTTP_API_KEY": "your-secret-api-key"
       },
       "disabled": false,
       "autoApprove": []
     }
   }
 }
+```
+
+## Usage
+
+The server can be started in two modes:
+
+### Stdio Mode (Default)
+
+This is the default mode and uses standard input/output for communication.
+
+```bash
+npm start
+```
+
+### HTTP Mode
+
+This mode starts an HTTP server that exposes the MCP endpoints.
+
+```bash
+npm run start:http
+```
+
+When running in HTTP mode, the server will listen on the port specified by the `PORT` environment variable (default: 3000).
+
+#### API Key Authentication
+
+If `MCP_HTTP_AUTH_ENABLED` is set to `true`, all requests to the `/mcp` endpoint must include an `X-API-Key` header with the value of `MCP_HTTP_API_KEY`.
+
+Example `curl` request with authentication:
+
+```bash
+curl -X POST -H "Content-Type: application/json" \
+     -H "X-API-Key: your-secret-api-key" \
+     -d '{ "jsonrpc": "2.0", "method": "list_tools", "id": 1 }' \
+     http://localhost:3000/mcp
 ```
 
 ## Available Tools
@@ -186,9 +230,9 @@ Executes a read-only SQL query.
 }
 ```
 
-## Advanced Connection Pool Configuration
+## Advanced Configuration
 
-For more control over the MySQL connection pool behavior, you can configure additional parameters:
+For more control over the MySQL connection pool behavior and HTTP server settings, you can configure additional parameters:
 
 ```json
 {
@@ -207,7 +251,11 @@ For more control over the MySQL connection pool behavior, you can configure addi
         "MYSQL_QUEUE_LIMIT": "0",
         "MYSQL_CONNECT_TIMEOUT": "10000",
         "MYSQL_IDLE_TIMEOUT": "60000",
-        "MYSQL_MAX_IDLE": "10"
+        "MYSQL_MAX_IDLE": "10",
+        
+        "PORT": "3000",
+        "MCP_HTTP_AUTH_ENABLED": "true",
+        "MCP_HTTP_API_KEY": "your-secret-api-key"
       },
       "disabled": false,
       "autoApprove": []
@@ -223,6 +271,9 @@ These advanced options allow you to:
 - `MYSQL_CONNECT_TIMEOUT`: Adjust the connection timeout in milliseconds (default: 10000)
 - `MYSQL_IDLE_TIMEOUT`: Configure how long a connection can be idle before being released (in milliseconds)
 - `MYSQL_MAX_IDLE`: Set the maximum number of idle connections to keep in the pool
+- `PORT`: Specify the port for the HTTP server (default: 3000)
+- `MCP_HTTP_AUTH_ENABLED`: Enable or disable API key authentication for the HTTP server
+- `MCP_HTTP_API_KEY`: Set the API key for HTTP server authentication
 
 
 ## Testing

@@ -13,7 +13,9 @@
     "build": "tsc && node -e \"require('fs').chmodSync('build/index.js', '755')\"",
     "prepare": "npm run build",
     "watch": "tsc --watch",
+    "start": "npm run build && node build/index.js",
     "inspector": "npx @modelcontextprotocol/inspector build/index.js",
+    "start:http": "npm run build && node build/index.js http",
     "test:setup": "node test-setup.js",
     "test:tools": "node test-tools.js",
     "test": "npm run test:setup && npm run test:tools"
@@ -33,12 +35,15 @@
   "author": "Diogo Lucas <dpflucas@gmail.com>",
   "license": "MIT",
   "dependencies": {
-    "@modelcontextprotocol/sdk": "0.6.0",
-    "mysql2": "^3.12.0"
+    "@modelcontextprotocol/sdk": "1.13.2",
+    "express": "^5.1.0",
+    "mysql2": "^3.14.1"
   },
   "devDependencies": {
-    "@types/node": "^20.11.24",
-    "dotenv": "^16.4.7",
-    "typescript": "^5.3.3"
+    "@types/express": "^5.0.3",
+    "@types/node": "^24.0.7",
+    "dotenv": "^17.0.0",
+    "prettier": "^3.6.2",
+    "typescript": "^5.8.3"
   }
 }
