@@ -1,7 +1,5 @@
 #!/usr/bin/env node
 
-import 'dotenv/config'; // Load environment variables from .env file
-
 /**
  * MySQL Database Access MCP Server
  *
