@@ -1,6 +1,6 @@
 {
-  "name": "mysql-mcp-server",
-  "version": "0.1.3",
+  "name": "@utajum/mysql-read-only-mcp-server",
+  "version": "1.0.1-beta03",
   "description": "An MCP server that provides read-only access to MySQL databases.",
   "type": "module",
   "bin": {
@@ -28,11 +28,14 @@
     "ai",
     "llm"
   ],
+  "publishConfig": {
+    "access": "public"
+  },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/dpflucas/mysql-mcp-server.git"
+    "url": "git+https://github.com/utajum/mysql-mcp-server.git"
   },
-  "author": "Diogo Lucas <dpflucas@gmail.com>",
+  "author": "Vladimir Tasik <vladimir.tasik@gmail.com>",
   "license": "MIT",
   "dependencies": {
     "@modelcontextprotocol/sdk": "1.13.2",
@@ -45,5 +48,10 @@
     "dotenv": "^17.0.0",
     "prettier": "^3.6.2",
     "typescript": "^5.8.3"
-  }
+  },
+  "main": "test-setup.js",
+  "bugs": {
+    "url": "https://github.com/utajum/mysql-mcp-server/issues"
+  },
+  "homepage": "https://github.com/utajum/mysql-mcp-server#readme"
 }
