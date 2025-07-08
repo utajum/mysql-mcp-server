@@ -139,6 +139,17 @@ curl -X POST -H "Content-Type: application/json" \
      -H "X-API-Key: your-secret-api-key" \
      -d '{ "jsonrpc": "2.0", "method": "list_tools", "id": 1 }' \
      http://localhost:3000/mcp
+
+#### Deprecated SSE Transport
+
+For backwards compatibility, the server also supports a deprecated Server-Sent Events (SSE) transport. This transport is not recommended for new integrations and may be removed in a future version. For more details on the deprecation, see the [official MCP documentation](https://modelcontextprotocol.io/docs/concepts/transports#server-sent-events-sse-deprecated).
+
+The legacy SSE transport uses the following endpoints:
+
+- `GET /sse`: Establishes the SSE connection for server-to-client communication.
+- `POST /messages`: Used for client-to-server communication.
+
+**Note**: This implementation is not safe for concurrent clients and should only be used for backwards compatibility with single-client scenarios.
 ```
 
 ## Available Tools

@@ -1,6 +1,6 @@
 {
   "name": "@utajum/mysql-read-only-mcp-server",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "description": "An MCP server that provides read-only access to MySQL databases.",
   "type": "module",
   "bin": {

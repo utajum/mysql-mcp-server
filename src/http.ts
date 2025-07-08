@@ -1,15 +1,34 @@
 import express from 'express';
 import { randomUUID } from 'node:crypto';
 import { Server as McpServer } from '@modelcontextprotocol/sdk/server/index.js';
+import { SSEServerTransport } from '@modelcontextprotocol/sdk/server/sse.js';
 import { StreamableHTTPServerTransport } from '@modelcontextprotocol/sdk/server/streamableHttp.js';
 import { isInitializeRequest } from '@modelcontextprotocol/sdk/types.js';
 import { MySQLConfig } from './types.js';
 
 export function startHttpServer(server: McpServer, config: MySQLConfig) {
   const app = express();
-  app.use(express.json());
+  // Middleware to log every request
+  // app.use((req, res, next) => {
+  //   const start = Date.now();
+  //   console.log(`[HTTP] --> ${req.method} ${req.originalUrl}`);
+  //   console.log(`[HTTP] Headers: ${JSON.stringify(req.headers, null, 2)}`);
+  //   if (req.body) {
+  //     console.log(`[HTTP] Body: ${JSON.stringify(req.body, null, 2)}`);
+  //   }
+
+  //   res.on('finish', () => {
+  //     const duration = Date.now() - start;
+  //     console.log(
+  //       `[HTTP] <-- ${req.method} ${req.originalUrl} ${res.statusCode} ${res.statusMessage} - ${duration}ms`
+  //     );
+  //   });
+
+  //   next();
+  // });
 
   const mcpRouter = express.Router();
+  mcpRouter.use(express.json());
 
   // API key authentication middleware.
   // This is applied to all /mcp routes.
@@ -104,6 +123,29 @@ export function startHttpServer(server: McpServer, config: MySQLConfig) {
   mcpRouter.delete('/', handleSessionRequest);
 
   app.use('/mcp', mcpRouter);
+
+  // Deprecated SSE transport.
+  // This implementation is not safe for concurrent clients and should only be
+  // used for backwards compatibility with single-client scenarios.
+  let sseTransport: SSEServerTransport | null = null;
+
+  app.get('/sse', (req, res) => {
+    console.log('[HTTP] SSE transport requested (deprecated)');
+    sseTransport = new SSEServerTransport('/messages', res);
+    server.connect(sseTransport);
+    req.on('close', () => {
+      console.log('[HTTP] SSE transport closed (deprecated)');
+      sseTransport = null;
+    });
+  });
+
+  app.post('/messages', (req, res) => {
+    if (sseTransport) {
+      sseTransport.handlePostMessage(req, res);
+    } else {
+      res.status(400).send('No active SSE transport');
+    }
+  });
 
   const port = process.env.PORT || 3000;
   app.listen(port, () => {
